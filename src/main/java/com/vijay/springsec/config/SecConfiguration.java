@@ -36,13 +36,23 @@ public class SecConfiguration {
 		;
 		return http.build();
 	}
+	/*
+	 * Creating Bean UserDetailsService for spring context
+	 */
 //	@Bean
 //	public UserDetailsService userDetailsService() {
+		/*
+		 * InMemoryUserDetailsManager
+		 * To store users details in memory
+		 */
 //		UserDetails user1=User.withUsername("vijay").password(bCryptPasswordEncoder().encode("1234")).roles("ADMIN").build();
 //		UserDetails user2=User.withUsername("vijayp").password(bCryptPasswordEncoder().encode("12345")).roles("user2").build();
 //		InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager(user1,user2);
-
-//		UserDetailsManager userDetailsManager=new MyJDBCImpl();
+		
+		/*
+		 * Costom implemntation of UserDetailsManager
+		 */
+//		UserDetailsManager userDetailsManager=new MyUserDetailsManager();
 //		return userDetailsManager;
 //	}
 	@Bean
