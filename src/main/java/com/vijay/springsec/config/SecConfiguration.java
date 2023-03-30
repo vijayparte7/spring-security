@@ -18,6 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -26,9 +27,10 @@ public class SecConfiguration {
 	@Bean
 	public SecurityFilterChain chain(HttpSecurity http) throws Exception {
 		http.csrf().disable()
+		.addFilterAfter(new MyCustomFilter(),BasicAuthenticationFilter.class)
 		.authorizeHttpRequests()
-		.requestMatchers("/test1").hasRole("ADMIN")
-		.requestMatchers("/test2").hasRole("USER")
+		.requestMatchers("/test1").hasRole("USER")
+//		.requestMatchers("/test2").access("")
 		.requestMatchers("/test","/signup").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin()
@@ -55,8 +57,9 @@ public class SecConfiguration {
 //		UserDetailsManager userDetailsManager=new MyUserDetailsManager();
 //		return userDetailsManager;
 //	}
+	
 	@Bean
-	public PasswordEncoder bCryptPasswordEncoder() {
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 
 	}

@@ -18,11 +18,12 @@ import com.vijay.springsec.entity.repo.UsersRepo;
 public class MyUserDetailsManager implements UserDetailsManager {
 	@Autowired
 	private UsersRepo repo;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		Users user = repo.findByUsername(username);
 		if (user == null) {
-			throw new UsernameNotFoundException("username not found: " + username + ".");
+			throw new UsernameNotFoundException("username not found: " + username);
 		}
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		for (Role role : user.getRoles()) {
@@ -31,32 +32,35 @@ public class MyUserDetailsManager implements UserDetailsManager {
 		return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
 
 	}
+
 	@Override
 	public void createUser(UserDetails user) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void updateUser(UserDetails user) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void deleteUser(String username) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public void changePassword(String oldPassword, String newPassword) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 	@Override
 	public boolean userExists(String username) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	
 
 }
